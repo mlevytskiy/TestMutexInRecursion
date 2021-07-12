@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 Log.i("testr", "start work")
 //                val result = increment()
-                increment2()
-                Log.i("testr", "finish work $i")
+                val result = increment2()
+                Log.i("testr", "finish work $result")
             }
 
         }
@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun increment2(doAgain: Boolean = true) {
-        mutex.withReentrantLock {
+    private suspend fun increment2(doAgain: Boolean = true): Int {
+        return mutex.withReentrantLock {
             i++
             if (doAgain) {
                 increment2(false)
